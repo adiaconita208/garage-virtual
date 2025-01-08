@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Acasă</title>
+</head>
+<body>
+<h2>Bun venit, <span th:text="${utilizator.nume} + ' ' + ${utilizator.prenume}">Utilizator</span>!</h2>
+<h3>Vehiculele tale:</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nr. înmatriculare</th>
+        <th>Marca</th>
+        <th>Model</th>
+        <th>An</th>
+        <th>Tip</th>
+        <th>Disponibil</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vehicul : ${vehicule}">
+        <td th:text="${vehicul.licensePlate}">Nr. înmatriculare</td>
+        <td th:text="${vehicul.make}">Marca</td>
+        <td th:text="${vehicul.model}">Model</td>
+        <td th:text="${vehicul.year}">An</td>
+        <td th:text="${vehicul.type}">Tip</td>
+        <td th:text="${vehicul.available ? 'Da' : 'Nu'}">Disponibil</td>
+    </tr>
+    </tbody>
+</table>
+
+<button onclick="location.href='/acasa/adauga-vehicul'" style="margin-top: 20px;">Adaugă Vehicul</button>
+
+</body>
+</html>

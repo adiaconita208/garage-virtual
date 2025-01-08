@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adaugă Vehicul</title>
+</head>
+<body>
+<h2>Adaugă un vehicul nou</h2>
+<form th:action="@{/acasa/adauga-vehicul}" method="post">
+    <label for="nrInmatriculare">Număr înmatriculare:</label>
+    <input type="text" id="nrInmatriculare" name="nrInmatriculare" required>
+    <br>
+    <label for="serieSasiu">VIN:</label>
+    <input type="text" id="serieSasiu" name="serieSasiu" required>
+    <br>
+    <label for="marca">Marcă:</label>
+    <input type="text" id="marca" name="marca" required>
+    <br>
+    <label for="model">Model:</label>
+    <input type="text" id="model" name="model" required>
+    <br>
+    <label for="anFabricatie">An:</label>
+    <input type="number" id="anFabricatie" name="anFabricatie" required>
+    <br>
+    <label for="tip">Tip:</label>
+    <input type="text" id="tip" name="tip" required>
+    <br>
+    <label for="disponibil">Disponibil:</label>
+    <input type="checkbox" id="disponibil" name="disponibil">
+    <br>
+    <button type="submit">Salvează Vehicul</button>
+</form>
+</body>
+</html>

@@ -18,6 +18,18 @@ public class Vehicul {
     private String tip;
     private boolean disponibil;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Utilizator proprietar;
+
+    public Utilizator getProprietar() {
+        return proprietar;
+    }
+
+    public void setProprietar(Utilizator proprietar) {
+        this.proprietar = proprietar;
+    }
+
     public String getNrInmatriculare() {
         return nrInmatriculare;
     }

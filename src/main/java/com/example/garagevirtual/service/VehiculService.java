@@ -1,33 +1,38 @@
 package com.example.garagevirtual.service;
 
+import com.example.garagevirtual.model.Utilizator;
 import com.example.garagevirtual.model.Vehicul;
-import com.example.garagevirtual.repository.VehicleRepository;
+import com.example.garagevirtual.repository.VehiculRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class VehiculService {
-    private final VehicleRepository vehicleRepository;
+    private final VehiculRepository vehiculRepository;
 
-    public VehiculService(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
+    public List<Vehicul> getVehiclesByUtilizator(Utilizator utilizator) {
+        return vehiculRepository.findByProprietar(utilizator);
+    }
+
+    public VehiculService(VehiculRepository vehiculRepository) {
+        this.vehiculRepository = vehiculRepository;
     }
 
     public List<Vehicul> getAllVehicles() {
-        return vehicleRepository.findAll();
+        return vehiculRepository.findAll();
     }
 
     public Vehicul addVehicle(Vehicul vehicul) {
-        return vehicleRepository.save(vehicul);
+        return vehiculRepository.save(vehicul);
     }
 
     public void deleteVehicle(Long id) {
-        vehicleRepository.deleteById(id);
+        vehiculRepository.deleteById(id);
     }
 
     public Vehicul updateVehicle(Long id, Vehicul updatedVehicul) {
-        return vehicleRepository.findById(id)
+        return vehiculRepository.findById(id)
                 .map(vehicul -> {
                     vehicul.setNrInmatriculare(updatedVehicul.getNrInmatriculare());
                     vehicul.setSerieSasiu(updatedVehicul.getSerieSasiu());
@@ -36,8 +41,12 @@ public class VehiculService {
                     vehicul.setAnFabricatie(updatedVehicul.getAnFabricatie());
                     vehicul.setTip(updatedVehicul.getTip());
                     vehicul.setDisponibil(updatedVehicul.isDisponibil());
-                    return vehicleRepository.save(vehicul);
+                    return vehiculRepository.save(vehicul);
                 })
                 .orElseThrow(() -> new RuntimeException("Vehicul not found"));
+    }
+
+    public Vehicul saveVehicle(Vehicul vehicle) {
+        return vehiculRepository.save(vehicle); // Salvează vehiculul în baza de date
     }
 }
