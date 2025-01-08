@@ -12,7 +12,7 @@
 	<artifactId>garage-virtual</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Garage Virtual</name>
-	<description>Application for vehicle management in a virtual garage</description>
+	<description>Application for vehicul management in a virtual garage</description>
 	<url/>
 	<licenses>
 		<license/>
