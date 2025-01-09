@@ -1,9 +1,6 @@
 package com.example.garagevirtual.controller;
 
-import com.example.garagevirtual.model.Utilizator;
 import com.example.garagevirtual.model.Vehicul;
-import com.example.garagevirtual.service.SessionService;
-import com.example.garagevirtual.service.UtilizatorService;
 import com.example.garagevirtual.service.VehiculService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,21 +14,16 @@ import java.util.List;
 public class AcasaController {
 
     private final VehiculService vehiculService;
-    private final UtilizatorService utilizatorService;
-    private final SessionService sessionService;
 
-    public AcasaController(VehiculService vehiculService, UtilizatorService utilizatorService, SessionService sessionService) {
+    public AcasaController(VehiculService vehiculService) {
         this.vehiculService = vehiculService;
-        this.utilizatorService = utilizatorService;
-        this.sessionService = sessionService;
     }
 
     @GetMapping("/acasa")
     public String showAcasa(Model model) {
-        Utilizator currentUser = utilizatorService.findUtilizatorByEmail("john.doe@example.com").orElseThrow();
-        List<Vehicul> userVehicles = vehiculService.getVehiclesByUtilizator(currentUser);
-        model.addAttribute("vehicule", userVehicles);
-        model.addAttribute("utilizator", currentUser);
+
+        List<Vehicul> vehicule = vehiculService.getAllVehicles();
+        model.addAttribute("vehicule", vehicule);
         return "acasa";
     }
 
@@ -48,11 +40,8 @@ public class AcasaController {
                              @RequestParam String model,
                              @RequestParam int anFabricatie,
                              @RequestParam String tip,
-                             @RequestParam boolean disponibil) {
-        // Obține utilizatorul curent din sesiune
-        Utilizator currentUser = sessionService.getCurrentUser();
+                             @RequestParam(required = false, defaultValue = "false") boolean disponibil) {
 
-        // Creează vehiculul și asociază-l cu utilizatorul curent
         Vehicul vehicul = new Vehicul();
         vehicul.setNrInmatriculare(nrInmatriculare);
         vehicul.setSerieSasiu(serieSasiu);
@@ -61,10 +50,9 @@ public class AcasaController {
         vehicul.setAnFabricatie(anFabricatie);
         vehicul.setTip(tip);
         vehicul.setDisponibil(disponibil);
-        vehicul.setProprietar(currentUser);
 
         // Salvează vehiculul
-        vehiculService.saveVehicle(vehicul);
+        vehiculService.saveVehicul(vehicul);
 
         // Redirecționează către pagina "Acasă"
         return "redirect:/acasa";

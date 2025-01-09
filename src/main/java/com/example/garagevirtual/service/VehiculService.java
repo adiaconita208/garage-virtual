@@ -1,6 +1,5 @@
 package com.example.garagevirtual.service;
 
-import com.example.garagevirtual.model.Utilizator;
 import com.example.garagevirtual.model.Vehicul;
 import com.example.garagevirtual.repository.VehiculRepository;
 import org.springframework.stereotype.Service;
@@ -11,9 +10,7 @@ import java.util.List;
 public class VehiculService {
     private final VehiculRepository vehiculRepository;
 
-    public List<Vehicul> getVehiclesByUtilizator(Utilizator utilizator) {
-        return vehiculRepository.findByProprietar(utilizator);
-    }
+
 
     public VehiculService(VehiculRepository vehiculRepository) {
         this.vehiculRepository = vehiculRepository;
@@ -46,7 +43,7 @@ public class VehiculService {
                 .orElseThrow(() -> new RuntimeException("Vehicul not found"));
     }
 
-    public Vehicul saveVehicle(Vehicul vehicle) {
-        return vehiculRepository.save(vehicle); // Salvează vehiculul în baza de date
+    public Vehicul saveVehicul(Vehicul vehicul) {
+        return vehiculRepository.save(vehicul);
     }
 }

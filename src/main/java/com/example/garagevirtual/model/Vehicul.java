@@ -2,6 +2,7 @@ package com.example.garagevirtual.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Data
 @Entity
@@ -10,7 +11,9 @@ public class Vehicul {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nr_inmatriculare")
     private String nrInmatriculare;
+
     private String serieSasiu;
     private String marca;
     private String model;
@@ -18,23 +21,11 @@ public class Vehicul {
     private String tip;
     private boolean disponibil;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Utilizator proprietar;
-
-    public Utilizator getProprietar() {
-        return proprietar;
-    }
-
-    public void setProprietar(Utilizator proprietar) {
-        this.proprietar = proprietar;
-    }
-
     public String getNrInmatriculare() {
         return nrInmatriculare;
     }
 
-    public void setNrInmatriculare(String NrInmatriculare) {
+    public void setNrInmatriculare(String nrInmatriculare) {
         this.nrInmatriculare = nrInmatriculare;
     }
 
