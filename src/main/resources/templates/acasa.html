@@ -10,6 +10,12 @@
                 window.location.href = '/delete-vehicul/' + vehiculId;
             }
         }
+
+        function confirmEdit(vehiculId) {
+            if (confirm("Ești sigur că vrei să editezi acest vehicul?")) {
+                window.location.href = '/edit-vehicul/' + vehiculId;
+            }
+        }
     </script>
 
 </head>
@@ -41,6 +47,10 @@
         <td>
             <button th:onclick="'confirmDelete(' + ${vehicul.id} + ')'" style="border: none; background: none; cursor: pointer;">
                 <img src="/images/trash-icon.png" alt="Șterge" width="20" height="20">
+            </button>
+
+            <button th:onclick="'confirmEdit(' + ${vehicul.id} +  ')'" style="border: none; background: none; cursor: pointer;">
+                <img src="/images/edit-icon.png" alt="Editează" width="20" height="20">
             </button>
         </td>
     </tr>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editează Vehicul</title>
+</head>
+<body>
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<h2>Editează Vehicul</h2>
+
+<form th:action="@{/edit-vehicul}" method="post">
+    <input type="hidden" name="id" th:value="${vehicul.id}">
+
+    <label for="nrInmatriculare">Număr înmatriculare:</label>
+    <input type="text" id="nrInmatriculare" name="nrInmatriculare" th:value="${vehicul.nrInmatriculare}" required>
+    <br>
+    <label for="serieSasiu">Seria de șasiu:</label>
+    <input type="text" id="serieSasiu" name="serieSasiu" th:value="${vehicul.serieSasiu}" required>
+    <br>
+    <label for="marca">Marcă:</label>
+    <input type="text" id="marca" name="marca" th:value="${vehicul.marca}" required>
+    <br>
+    <label for="model">Model:</label>
+    <input type="text" id="model" name="model" th:value="${vehicul.model}" required>
+    <br>
+    <label for="anFabricatie">An:</label>
+    <input type="number" id="anFabricatie" name="anFabricatie" th:value="${vehicul.anFabricatie}" required>
+    <br>
+    <label for="tip">Tip:</label>
+    <select id="tip" name="tip" required>
+        <option value="AUTOMOBIL" th:selected="${vehicul.tip.name() == 'AUTOMOBIL'}">Automobil</option>
+        <option value="MOTOCICLETA" th:selected="${vehicul.tip.name() == 'MOTOCICLETA'}">Motocicletă</option>
+        <option value="AUTOUTILITARA" th:selected="${vehicul.tip.name() == 'AUTOUTILITARA'}">Autoutilitară</option>
+    </select>
+    <br>
+    <label for="disponibil">Disponibil:</label>
+    <input type="checkbox" id="disponibil" name="disponibil" th:checked="${vehicul.disponibil}">
+    <br>
+    <button type="submit">Salvează Modificările</button>
+</form>
+</body>
+</html>

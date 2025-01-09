@@ -76,4 +76,55 @@ public class AcasaController {
         vehiculService.deleteVehiculById(id);
         return "redirect:/acasa"; // Redirecționează către pagina principală
     }
+
+    @GetMapping("/edit-vehicul/{id}")
+    public String editVehiculForm(@PathVariable Long id, Model model) {
+        Vehicul vehicul = vehiculService.getVehiculById(id);
+        if (vehicul == null) {
+            throw new IllegalArgumentException("Vehiculul cu ID-ul " + id + " nu a fost găsit.");
+        }
+        model.addAttribute("vehicul", vehicul);
+        return "edit-vehicul";
+    }
+
+    @PostMapping("/edit-vehicul")
+    public String editVehicul(@RequestParam Long id,
+                              @RequestParam String nrInmatriculare,
+                              @RequestParam String serieSasiu,
+                              @RequestParam String marca,
+                              @RequestParam String model,
+                              @RequestParam int anFabricatie,
+                              @RequestParam String tip,
+                              @RequestParam boolean disponibil,
+                              Model uimodel) {
+        if (serieSasiu.length() != 17) {
+            Vehicul vehicul = vehiculService.getVehiculById(id); // Obține vehiculul din baza de date
+            vehicul.setNrInmatriculare(nrInmatriculare);
+            vehicul.setSerieSasiu(serieSasiu); // Setează valorile introduse în formular
+            vehicul.setMarca(marca);
+            vehicul.setModel(model);
+            vehicul.setAnFabricatie(anFabricatie);
+            vehicul.setTip(TipVehicul.valueOf(tip.toUpperCase()));
+            vehicul.setDisponibil(disponibil);
+
+            uimodel.addAttribute("vehicul", vehicul); // Adaugă vehiculul în model
+            uimodel.addAttribute("error", "Seria de șasiu trebuie să aibă exact 17 caractere."); // Mesaj de eroare
+            return "edit-vehicul"; // Redirecționează utilizatorul la formularul de editare
+        }
+
+        Vehicul vehicul = vehiculService.getVehiculById(id);
+        vehicul.setNrInmatriculare(nrInmatriculare);
+        vehicul.setSerieSasiu(serieSasiu);
+        vehicul.setMarca(marca);
+        vehicul.setModel(model);
+        vehicul.setAnFabricatie(anFabricatie);
+
+        // Conversie tip
+        vehicul.setTip(TipVehicul.valueOf(tip.toUpperCase()));
+        vehicul.setDisponibil(disponibil);
+
+        vehiculService.saveVehicul(vehicul); // Salvează vehiculul actualizat
+
+        return "redirect:/acasa";
+    }
 }

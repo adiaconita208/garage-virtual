@@ -50,4 +50,9 @@ public class VehiculService {
     public void deleteVehiculById(Long id) {
         vehiculRepository.deleteById(id);
     }
+
+    public Vehicul getVehiculById(Long id) {
+        return vehiculRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicul not found"));
+    }
 }
