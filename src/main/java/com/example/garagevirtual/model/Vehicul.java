@@ -18,8 +18,13 @@ public class Vehicul {
     private String marca;
     private String model;
     private int anFabricatie;
-    private String tip;
+
+    @Enumerated(EnumType.STRING)
+    private TipVehicul tip;
+
     private boolean disponibil;
+
+
 
     public String getNrInmatriculare() {
         return nrInmatriculare;
@@ -61,11 +66,11 @@ public class Vehicul {
         this.anFabricatie = anFabricatie;
     }
 
-    public String getTip() {
+    public TipVehicul getTip() {
         return tip;
     }
 
-    public void setTip(String tip) {
+    public void setTip(TipVehicul tip) {
         this.tip = tip;
     }
 

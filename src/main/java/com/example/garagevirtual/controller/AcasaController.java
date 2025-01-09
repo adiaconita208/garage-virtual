@@ -1,5 +1,6 @@
 package com.example.garagevirtual.controller;
 
+import com.example.garagevirtual.model.TipVehicul;
 import com.example.garagevirtual.model.Vehicul;
 import com.example.garagevirtual.service.VehiculService;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,13 @@ public class AcasaController {
                              @RequestParam String model,
                              @RequestParam int anFabricatie,
                              @RequestParam String tip,
-                             @RequestParam(required = false, defaultValue = "false") boolean disponibil) {
+                             @RequestParam(required = false, defaultValue = "false") boolean disponibil,
+                             Model uimodel) {
+
+        if (serieSasiu.length() != 17) {
+            uimodel.addAttribute("error", "Seria de șasiu introdusă nu este validă");
+            return "adauga-vehicul"; // Redirecționează utilizatorul înapoi la formular
+        }
 
         Vehicul vehicul = new Vehicul();
         vehicul.setNrInmatriculare(nrInmatriculare);
@@ -48,8 +55,13 @@ public class AcasaController {
         vehicul.setMarca(marca);
         vehicul.setModel(model);
         vehicul.setAnFabricatie(anFabricatie);
-        vehicul.setTip(tip);
         vehicul.setDisponibil(disponibil);
+
+        try {
+            vehicul.setTip(TipVehicul.valueOf(tip.toUpperCase()));
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Tipul selectat nu este valid.");
+        }
 
         // Salvează vehiculul
         vehiculService.saveVehicul(vehicul);

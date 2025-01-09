@@ -5,6 +5,9 @@
 </head>
 <body>
 <h2>Adaugă un vehicul nou</h2>
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
 <form th:action="@{/acasa/adauga-vehicul}" method="post">
     <label for="nrInmatriculare">Număr înmatriculare:</label>
     <input type="text" id="nrInmatriculare" name="nrInmatriculare" required>
@@ -22,7 +25,11 @@
     <input type="number" id="anFabricatie" name="anFabricatie" required>
     <br>
     <label for="tip">Tip:</label>
-    <input type="text" id="tip" name="tip" required>
+    <select id="tip" name="tip" required>
+        <option value="automobil">Automobil</option>
+        <option value="motocicleta">Motocicletă</option>
+        <option value="autoutilitara">Autoutilitară</option>
+    </select>
     <br>
     <label for="disponibil">Disponibil:</label>
     <input type="checkbox" id="disponibil" name="disponibil">
