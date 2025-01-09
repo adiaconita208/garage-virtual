@@ -6,6 +6,7 @@ import com.example.garagevirtual.service.VehiculService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -68,5 +69,11 @@ public class AcasaController {
 
         // Redirecționează către pagina "Acasă"
         return "redirect:/acasa";
+    }
+
+    @GetMapping("/delete-vehicul/{id}")
+    public String deleteVehicul(@PathVariable Long id) {
+        vehiculService.deleteVehiculById(id);
+        return "redirect:/acasa"; // Redirecționează către pagina principală
     }
 }

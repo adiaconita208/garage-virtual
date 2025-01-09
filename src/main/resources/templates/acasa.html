@@ -2,6 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Acasă</title>
+
+    <script>
+        function confirmDelete(vehiculId) {
+            console.log(vehiculId);
+            if (confirm("Ești sigur că vrei să ștergi acest vehicul?")) {
+                window.location.href = '/delete-vehicul/' + vehiculId;
+            }
+        }
+    </script>
+
 </head>
 <body>
 <h2>Bun venit!</h2>
@@ -16,6 +26,7 @@
         <th>Tip</th>
         <th>Disponibil</th>
         <th>Serie Sasiu</th>
+        <th>Acțiuni</th>
     </tr>
     </thead>
     <tbody>
@@ -27,6 +38,11 @@
         <td th:text="${vehicul.tip}">Tip</td>
         <td th:text="${vehicul.disponibil ? 'Da' : 'Nu'}">Disponibil</td>
         <td th:text="${vehicul.serieSasiu}">Serie Sasiu</td>
+        <td>
+            <button th:onclick="'confirmDelete(' + ${vehicul.id} + ')'" style="border: none; background: none; cursor: pointer;">
+                <img src="/images/trash-icon.png" alt="Șterge" width="20" height="20">
+            </button>
+        </td>
     </tr>
     </tbody>
 </table>
