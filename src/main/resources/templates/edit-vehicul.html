@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
     <title>Editează Vehicul</title>
+
 </head>
 <body>
 <div th:if="${error}" style="color: red;">
@@ -34,9 +37,16 @@
         <option value="MOTOCICLETA" th:selected="${vehicul.tip.name() == 'MOTOCICLETA'}">Motocicletă</option>
         <option value="AUTOUTILITARA" th:selected="${vehicul.tip.name() == 'AUTOUTILITARA'}">Autoutilitară</option>
     </select>
+    <div>
+        <label for="disponibil">Disponibil</label>
+        <input type="text" id="disponibil" name="disponibil"
+               th:value="${vehicul.disponibil ? 'Da' : 'Nu'}" readonly>
+    </div>
+    <label for="itpExpirare">Data expirării ITP:</label>
+    <input type="date" id="itpExpirare" name="itpExpirare" th:value="${vehicul.itpExpirare}" required>
     <br>
-    <label for="disponibil">Disponibil:</label>
-    <input type="checkbox" id="disponibil" name="disponibil" th:checked="${vehicul.disponibil}">
+    <label for="rcaExpirare">Data expirării RCA:</label>
+    <input type="date" id="rcaExpirare" name="rcaExpirare" th:value="${vehicul.rcaExpirare}" required>
     <br>
     <button type="submit">Salvează Modificările</button>
 </form>

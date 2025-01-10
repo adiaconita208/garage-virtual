@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+
 <head>
     <title>Acasă</title>
 
@@ -30,8 +32,11 @@
         <th>Model</th>
         <th>An</th>
         <th>Tip</th>
+        <th>Data expirării ITP</th>
+        <th>Data expirării RCA</th>
         <th>Disponibil</th>
         <th>Serie Sasiu</th>
+
         <th>Acțiuni</th>
     </tr>
     </thead>
@@ -42,6 +47,20 @@
         <td th:text="${vehicul.model}">Model</td>
         <td th:text="${vehicul.anFabricatie}">An</td>
         <td th:text="${vehicul.tip}">Tip</td>
+        <td>
+                <div th:text="${vehicul.itpExpirare != null ? vehicul.itpExpirare.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy')) : ''}"
+                      th:classappend="
+                          ${vehicul.itpExpirare != null && vehicul.itpExpirare.isBefore(T(java.time.LocalDate).now()) ? 'expired' :
+                           vehicul.itpExpirare != null && vehicul.itpExpirare.minusMonths(1).isBefore(T(java.time.LocalDate).now()) ? 'warning' : ''}">
+                </div>
+        </td>
+        <td>
+                <div th:text="${vehicul.itpExpirare != null ? vehicul.rcaExpirare.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy')) : ''}"
+                      th:classappend="
+                          ${vehicul.rcaExpirare != null && vehicul.rcaExpirare.isBefore(T(java.time.LocalDate).now()) ? 'expired' :
+                           vehicul.rcaExpirare != null && vehicul.rcaExpirare.minusMonths(1).isBefore(T(java.time.LocalDate).now()) ? 'warning' : ''}">
+                </div>
+        </td>
         <td th:text="${vehicul.disponibil ? 'Da' : 'Nu'}">Disponibil</td>
         <td th:text="${vehicul.serieSasiu}">Serie Sasiu</td>
         <td>
@@ -57,7 +76,8 @@
     </tbody>
 </table>
 
-<button onclick="location.href='/acasa/adauga-vehicul'" style="margin-top: 20px;">Adaugă Vehicul</button>
+    <a href="/acasa/adauga-vehicul" class="btn">Adaugă vehicul</a>
+
 
 </body>
 </html>

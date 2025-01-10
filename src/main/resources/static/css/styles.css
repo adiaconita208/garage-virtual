@@ -1,0 +1,163 @@
+/* General styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif; /* Font modern */
+    background-color: #f4f4f4; /* Gri deschis pentru contrast */
+    color: #333; /* Text gri închis */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #000; /* Negru pentru titluri */
+    text-align: center;
+    margin-top: 20px;
+}
+
+a {
+    color: #007bff; /* Albastru pentru link-uri */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3; /* Albastru închis la hover */
+}
+
+/* Container principal */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff; /* Fundal alb pentru conținut */
+    border-radius: 8px; /* Colțuri rotunjite */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Umbră subtilă */
+}
+
+/* Form styles */
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form {
+    max-width: 500px; /* Setează o lățime maximă pentru formular */
+    margin: 20px auto; /* Centrează formularul în pagină */
+    padding: 20px;
+    background: white; /* Fundal alb pentru formular */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Umbră subtilă */
+}
+
+/* Stil pentru câmpurile de input */
+form input, form select, form button {
+    width: 100%; /* Umple lățimea formularului */
+    max-width: 400px; /* Lățime maximă pentru câmpuri */
+    margin: 10px auto; /* Spațiu între câmpuri */
+    display: block; /* Fiecare câmp pe un rând separat */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+form input:focus, form select:focus, form button:focus {
+    border-color: #333; /* Negru pentru focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+form button {
+    background-color: #000; /* Negru pentru butoane */
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #333; /* Gri închis la hover */
+}
+
+/* Tabel */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: left;
+}
+
+table th, table td {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+}
+
+table th {
+    background-color: #000; /* Negru pentru antet */
+    color: #fff; /* Alb pentru text */
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Gri deschis pentru rânduri alternative */
+}
+
+table tr:hover {
+    background-color: #eee; /* Gri mai închis la hover */
+}
+
+button, .btn {
+    background-color: #000; /* Negru */
+    color: #fff; /* Alb */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    justify-content: center;
+    text-align: center;
+    display: inline-block;
+    margin-top: 30px;
+}
+
+button:hover, .btn:hover {
+    background-color: #333; /* Gri închis */
+    color: #ffffff;
+}
+
+/* Efect de apăsare */
+button:active, .btn:active {
+    transform: scale(0.95);
+}
+
+/* Warning și Expired */
+.warning {
+    background-color: #ffc107; /* Galben */
+    color: #000;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.expired {
+    background-color: #dc3545; /* Roșu */
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #000; /* Negru pentru footer */
+    color: #fff; /* Alb pentru text */
+    font-size: 14px;
+}

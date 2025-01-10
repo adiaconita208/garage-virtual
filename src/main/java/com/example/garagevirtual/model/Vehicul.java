@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
+
 @Data
 @Entity
 public class Vehicul {
@@ -23,6 +25,25 @@ public class Vehicul {
     private TipVehicul tip;
 
     private boolean disponibil;
+
+    private LocalDate itpExpirare;
+    private LocalDate rcaExpirare;
+
+    public LocalDate getItpExpirare() {
+        return itpExpirare;
+    }
+
+    public void setItpExpirare(LocalDate itpExpirare) {
+        this.itpExpirare = itpExpirare;
+    }
+
+    public LocalDate getRcaExpirare() {
+        return rcaExpirare;
+    }
+
+    public void setRcaExpirare(LocalDate rcaExpirare) {
+        this.rcaExpirare = rcaExpirare;
+    }
 
 
 
@@ -75,11 +96,14 @@ public class Vehicul {
     }
 
     public boolean isDisponibil() {
-        return disponibil;
+        // Logica: true dacă ambele date sunt valide (după ziua curentă)
+        LocalDate today = LocalDate.now();
+        return (itpExpirare != null && itpExpirare.isAfter(today)) &&
+                (rcaExpirare != null && rcaExpirare.isAfter(today));
     }
 
-    public void setDisponibil(boolean disponibil) {
-        this.disponibil = disponibil;
+    public void actualizeazaDisponibil() {
+        this.disponibil = isDisponibil();
     }
 
     public Long getId() {

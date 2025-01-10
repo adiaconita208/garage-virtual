@@ -28,23 +28,17 @@ public class VehiculService {
         vehiculRepository.deleteById(id);
     }
 
-    public Vehicul updateVehicle(Long id, Vehicul updatedVehicul) {
-        return vehiculRepository.findById(id)
-                .map(vehicul -> {
-                    vehicul.setNrInmatriculare(updatedVehicul.getNrInmatriculare());
-                    vehicul.setSerieSasiu(updatedVehicul.getSerieSasiu());
-                    vehicul.setMarca(updatedVehicul.getMarca());
-                    vehicul.setModel(updatedVehicul.getModel());
-                    vehicul.setAnFabricatie(updatedVehicul.getAnFabricatie());
-                    vehicul.setTip(updatedVehicul.getTip());
-                    vehicul.setDisponibil(updatedVehicul.isDisponibil());
-                    return vehiculRepository.save(vehicul);
-                })
-                .orElseThrow(() -> new RuntimeException("Vehicul not found"));
+    public Vehicul saveVehicul(Vehicul vehicul) {
+        vehicul.actualizeazaDisponibil(); // Actualizează câmpul disponibil
+        return vehiculRepository.save(vehicul);
     }
 
-    public Vehicul saveVehicul(Vehicul vehicul) {
-        return vehiculRepository.save(vehicul);
+    public Vehicul updateVehicle(Long id, Vehicul vehiculActualizat) {
+        Vehicul vehiculExistent = vehiculRepository.findById(id).orElseThrow(() -> new RuntimeException("Vehiculul nu a fost găsit"));
+        vehiculExistent.setItpExpirare(vehiculActualizat.getItpExpirare());
+        vehiculExistent.setRcaExpirare(vehiculActualizat.getRcaExpirare());
+        vehiculExistent.actualizeazaDisponibil(); // Actualizează câmpul disponibil
+        return vehiculRepository.save(vehiculExistent);
     }
 
     public void deleteVehiculById(Long id) {

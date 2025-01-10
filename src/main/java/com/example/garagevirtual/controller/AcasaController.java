@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -38,12 +39,19 @@ public class AcasaController {
     @PostMapping("/acasa/adauga-vehicul")
     public String addVehicle(@RequestParam String nrInmatriculare,
                              @RequestParam String serieSasiu,
+                             @RequestParam LocalDate itpExpirare,
+                             @RequestParam LocalDate rcaExpirare,
                              @RequestParam String marca,
                              @RequestParam String model,
                              @RequestParam int anFabricatie,
                              @RequestParam String tip,
-                             @RequestParam(required = false, defaultValue = "false") boolean disponibil,
                              Model uimodel) {
+        int currentAnFabricatie = LocalDate.now().getYear();
+
+        if (anFabricatie > currentAnFabricatie) {
+            uimodel.addAttribute("error", "Anul fabricației nu poate fi mai mare decât " + currentAnFabricatie + ".");
+            return "adauga-vehicul";
+        }
 
         if (serieSasiu.length() != 17) {
             uimodel.addAttribute("error", "Seria de șasiu introdusă nu este validă");
@@ -53,10 +61,11 @@ public class AcasaController {
         Vehicul vehicul = new Vehicul();
         vehicul.setNrInmatriculare(nrInmatriculare);
         vehicul.setSerieSasiu(serieSasiu);
+        vehicul.setItpExpirare(itpExpirare);
+        vehicul.setRcaExpirare(rcaExpirare);
         vehicul.setMarca(marca);
         vehicul.setModel(model);
         vehicul.setAnFabricatie(anFabricatie);
-        vehicul.setDisponibil(disponibil);
 
         try {
             vehicul.setTip(TipVehicul.valueOf(tip.toUpperCase()));
@@ -91,37 +100,58 @@ public class AcasaController {
     public String editVehicul(@RequestParam Long id,
                               @RequestParam String nrInmatriculare,
                               @RequestParam String serieSasiu,
+                              @RequestParam LocalDate itpExpirare,
+                              @RequestParam LocalDate rcaExpirare,
                               @RequestParam String marca,
                               @RequestParam String model,
                               @RequestParam int anFabricatie,
                               @RequestParam String tip,
-                              @RequestParam boolean disponibil,
                               Model uimodel) {
         if (serieSasiu.length() != 17) {
             Vehicul vehicul = vehiculService.getVehiculById(id); // Obține vehiculul din baza de date
             vehicul.setNrInmatriculare(nrInmatriculare);
-            vehicul.setSerieSasiu(serieSasiu); // Setează valorile introduse în formular
+            vehicul.setSerieSasiu(serieSasiu);
+            vehicul.setItpExpirare(itpExpirare);
+            vehicul.setRcaExpirare(rcaExpirare);
             vehicul.setMarca(marca);
             vehicul.setModel(model);
             vehicul.setAnFabricatie(anFabricatie);
             vehicul.setTip(TipVehicul.valueOf(tip.toUpperCase()));
-            vehicul.setDisponibil(disponibil);
 
             uimodel.addAttribute("vehicul", vehicul); // Adaugă vehiculul în model
             uimodel.addAttribute("error", "Seria de șasiu trebuie să aibă exact 17 caractere."); // Mesaj de eroare
             return "edit-vehicul"; // Redirecționează utilizatorul la formularul de editare
         }
 
+        int currentAnFabricatie = LocalDate.now().getYear();
+
+        if (anFabricatie > currentAnFabricatie) {
+            Vehicul vehicul = vehiculService.getVehiculById(id);
+            vehicul.setNrInmatriculare(nrInmatriculare);
+            vehicul.setSerieSasiu(serieSasiu);
+            vehicul.setItpExpirare(itpExpirare);
+            vehicul.setRcaExpirare(rcaExpirare);
+            vehicul.setMarca(marca);
+            vehicul.setModel(model);
+            vehicul.setAnFabricatie(anFabricatie);
+            vehicul.setTip(TipVehicul.valueOf(tip.toUpperCase()));
+
+            uimodel.addAttribute("vehicul", vehicul);
+            uimodel.addAttribute("error", "Anul fabricației nu poate fi mai mare decât " + currentAnFabricatie + ".");
+            return "edit-vehicul";
+        }
+
         Vehicul vehicul = vehiculService.getVehiculById(id);
         vehicul.setNrInmatriculare(nrInmatriculare);
         vehicul.setSerieSasiu(serieSasiu);
+        vehicul.setItpExpirare(itpExpirare);
+        vehicul.setRcaExpirare(rcaExpirare);
         vehicul.setMarca(marca);
         vehicul.setModel(model);
         vehicul.setAnFabricatie(anFabricatie);
 
         // Conversie tip
         vehicul.setTip(TipVehicul.valueOf(tip.toUpperCase()));
-        vehicul.setDisponibil(disponibil);
 
         vehiculService.saveVehicul(vehicul); // Salvează vehiculul actualizat
 
