@@ -152,6 +152,16 @@ button:active, .btn:active {
     border-radius: 5px;
 }
 
+
+.vehicul-image {
+    width: 200px; /* Lățimea dorită */
+    height: 150px; /* Înălțimea dorită */
+    object-fit: cover; /* Păstrează proporțiile imaginii și umple caseta */
+    border-radius: 5px; /* Colțuri rotunjite (opțional) */
+    border: 1px solid #ccc; /* Bordează imaginea */
+}
+
+
 /* Footer */
 footer {
     text-align: center;

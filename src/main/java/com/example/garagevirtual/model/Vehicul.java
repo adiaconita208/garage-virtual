@@ -1,3 +1,8 @@
+/** Clasa reprezintă entitatea principală a aplicației modeland informatiile despre vehicul.
+ * @author Diaconita Adrian
+ * @version 12 Ianuarie 2024
+ */
+
 package com.example.garagevirtual.model;
 
 import jakarta.persistence.*;
@@ -28,6 +33,17 @@ public class Vehicul {
 
     private LocalDate itpExpirare;
     private LocalDate rcaExpirare;
+
+    private String imageUrl;
+
+    // Gettere și settere
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public LocalDate getItpExpirare() {
         return itpExpirare;

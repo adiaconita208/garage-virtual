@@ -20,6 +20,17 @@
         }
     </script>
 
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var vehicule = /*[[${vehicule}]]*/ [];
+        console.log("Vehicule încărcate:", vehicule);
+
+        vehicule.forEach(function(vehicul, index) {
+            console.log("Vehicul " + (index + 1) + ": Marca - " + vehicul.marca + ", Model - " + vehicul.model);
+        });
+        /*]]>*/
+    </script>
+
 </head>
 <body>
 <h2>Bun venit!</h2>
@@ -27,6 +38,7 @@
 <table border="1">
     <thead>
     <tr>
+        <th>Imagine</th>
         <th>Nr. înmatriculare</th>
         <th>Marca</th>
         <th>Model</th>
@@ -42,6 +54,10 @@
     </thead>
     <tbody>
     <tr th:each="vehicul : ${vehicule}">
+        <td>
+            <img th:src="${vehicul.imageUrl}" alt="Imagine vehicul" class="vehicul-image"
+                 style="max-width: 150px; max-height: 100px;">
+        </td>
         <td th:text="${vehicul.nrInmatriculare}">Nr. înmatriculare</td>
         <td th:text="${vehicul.marca}">Marca</td>
         <td th:text="${vehicul.model}">Model</td>
